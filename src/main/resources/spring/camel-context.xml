@@ -12,6 +12,9 @@
             <setBody>
                 <groovy>this.getClass().getResource( "/response/response${request.headers.randomResponse}.xml" ).text</groovy>
             </setBody>
+            <process ref="customProcessor">
+                
+            </process>
         </route>
     </camelContext>
     <cxf:cxfEndpoint id="simpleServiceEndpoint" address="/simpleService" wsdlURL="classpath:wsdl/simpleService.wsdl" />
