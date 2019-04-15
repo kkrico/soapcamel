@@ -3,20 +3,24 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cxf="http://camel.apache.org/schema/cxf"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring       http://camel.apache.org/schema/spring/camel-spring.xsd http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd">
-    <camelContext xmlns="http://camel.apache.org/schema/spring">
+   <camelContext xmlns="http://camel.apache.org/schema/spring">
         <route>
-            <from uri="cxf:bean:simpleServiceEndpoint?dataFormat=MESSAGE"/>
+            <from uri="cxf:bean:calculadoraServiceEndpoint?dataFormat=MESSAGE"/>
+            <removeHeaders pattern="CamelHttp*"/>
             <process ref="customProcessor">
 
             </process>
-            <setHeader headerName="randomResponse">
-                <simple>random(1,6)</simple>
-            </setHeader>
-            <setBody>
-                <groovy>this.getClass().getResource( "/response/response${request.headers.randomResponse}.xml" ).text</groovy>
-            </setBody>
+            <to uri="http://127.0.0.1:9877/calc"/>
+
+
 
         </route>
+        <route>
+            <from uri="cxf:bean:gascAutenticarUsuarioEndpoint?dataFormat=MESSAGE"/>
+            <removeHeaders pattern="CamelHttp*"/>
+            <to uri="http://servicos.hml.cassi.com.br/GASC/v2/ServicoUsuario.svc"/>
+        </route>
     </camelContext>
-    <cxf:cxfEndpoint id="simpleServiceEndpoint" address="/calc" wsdlURL="classpath:wsdl/calc.wsdl" />
+    <cxf:cxfEndpoint id="calculadoraServiceEndpoint" address="http://127.0.0.1:8089/soap/calculadora" serviceClass="br.com.cassi.soap.CalculadoraServerImpl" wsdlURL="http://127.0.0.1:9877/calc?wsdl" />
+    <cxf:cxfEndpoint id="gascAutenticarUsuarioEndpoint" address="http://127.0.0.1:8089/soap/gasc/autenticarusuario" wsdlURL="http://servicos.hml.cassi.com.br/GASC/v2/ServicoUsuario.svc?wsdl" />
 </beans>

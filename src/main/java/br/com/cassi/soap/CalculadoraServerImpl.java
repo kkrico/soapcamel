@@ -1,11 +1,12 @@
-package br.com.cassi;
+package br.com.cassi.soap;
 
 import javax.jws.WebService;
 
-@WebService(endpointInterface = "br.com.cassi.CalculadoraServer")
+
+@WebService(endpointInterface = "br.com.cassi.soap.CalculadoraServer", name = "Calculadora", serviceName = "CalculadoraSOAPService")
 public class CalculadoraServerImpl implements CalculadoraServer {
 
-    public float soma(float num1, float num2) {
+    public float soma(int num1, int num2) {
         return num1 + num2;
     }
 

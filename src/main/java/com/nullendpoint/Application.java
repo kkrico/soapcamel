@@ -15,7 +15,7 @@
  */
 package com.nullendpoint;
 
-import br.com.cassi.CalculadoraServerImpl;
+import br.com.cassi.soap.CalculadoraServerImpl;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ImportResource;
@@ -34,7 +34,5 @@ public class Application {
                 new CalculadoraServerImpl());
 
         SpringApplication.run(Application.class, args);
-
-
     }
 }

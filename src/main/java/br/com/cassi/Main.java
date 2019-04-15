@@ -1,5 +1,7 @@
 package br.com.cassi;
 
+import br.com.cassi.soap.CalculadoraServerImpl;
+
 import javax.xml.ws.Endpoint;
 
 public class Main {
