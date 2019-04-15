@@ -15,10 +15,11 @@
  */
 package com.nullendpoint;
 
-import org.apache.camel.builder.RouteBuilder;
+import br.com.cassi.CalculadoraServerImpl;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ImportResource;
+import javax.xml.ws.Endpoint;
 
 /**
  * A spring-boot application that includes a Camel route builder to setup the Camel routes
@@ -29,6 +30,11 @@ public class Application {
 
     // must have a main method spring-boot can run
     public static void main(String[] args) {
+        Endpoint.publish("http://127.0.0.1:9877/calc",
+                new CalculadoraServerImpl());
+
         SpringApplication.run(Application.class, args);
+
+
     }
 }

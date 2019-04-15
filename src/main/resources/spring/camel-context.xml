@@ -6,16 +6,17 @@
     <camelContext xmlns="http://camel.apache.org/schema/spring">
         <route>
             <from uri="cxf:bean:simpleServiceEndpoint?dataFormat=MESSAGE"/>
+            <process ref="customProcessor">
+
+            </process>
             <setHeader headerName="randomResponse">
                 <simple>random(1,6)</simple>
             </setHeader>
             <setBody>
                 <groovy>this.getClass().getResource( "/response/response${request.headers.randomResponse}.xml" ).text</groovy>
             </setBody>
-            <process ref="customProcessor">
-                
-            </process>
+
         </route>
     </camelContext>
-    <cxf:cxfEndpoint id="simpleServiceEndpoint" address="/simpleService" wsdlURL="classpath:wsdl/simpleService.wsdl" />
+    <cxf:cxfEndpoint id="simpleServiceEndpoint" address="/calc" wsdlURL="classpath:wsdl/calc.wsdl" />
 </beans>
